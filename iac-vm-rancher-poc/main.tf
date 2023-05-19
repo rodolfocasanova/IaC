@@ -22,20 +22,26 @@ resource "google_compute_address" "rancher_ip" {
 }
 
 # Asocia la dirección IP pública a la instancia de VM
-resource "google_compute_address_association" "rancher_ip_association" {
-  #name          = "rancher-ip-association"
-  #address       = google_compute_address.rancher_ip.address
- #instance_name = module.rancher_instance.instance_name
+#resource "google_compute_address_association" "rancher_ip_association" {
+#  name          = "rancher-ip-association"
+#  address       = google_compute_address.rancher_ip.address
+#  instance_name = module.rancher_instance.instance_name
+#}
+resource "google_compute_instance" "rancher_instance" {
+  name         = module.rancher_instance.instance_name
+  machine_type = var.machine_type
+  zone         = var.zone
+
   network_interface {
     network = "default"
 
     access_config {
-      // Asigna una dirección IP efímera
+      nat_ip = google_compute_address.rancher_ip.address
     }
   }
 
+  # Resto de la configuración de la instancia de VM de Rancher
 }
-
 # Define variables
 variable "instance_name" {
   description = "Nombre de la instancia de VM"
