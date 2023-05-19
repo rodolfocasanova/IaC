@@ -32,6 +32,12 @@ resource "google_compute_instance" "rancher_instance" {
   machine_type = var.machine_type
   zone         = var.zone
 
+  boot_disk {
+    initialize_params {
+      image = var.rancher_image
+    }
+  }
+
   network_interface {
     network = "default"
 
