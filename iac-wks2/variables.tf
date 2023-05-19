@@ -21,7 +21,7 @@ variable "zone" {
 variable "disk_image" {
   type        = string
   description = "Imagen del sistema operativo a utilizar en la instancia"
-  default     = "ubuntu-os-cloud/ubuntu-minimal-1804-lts-arm64"
+  default     = "ubuntu-os-cloud/ubuntu-minimal-2204-jammy-arm64-v20230428"
 }
 
 variable "machine_type" {
