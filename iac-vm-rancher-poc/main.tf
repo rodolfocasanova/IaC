@@ -4,7 +4,10 @@ provider "google" {
   project     = var.gcp_project_id
   region      = var.gcp_region
 }
-
+# Importar configuración de la red y subred
+module "network" {
+  source = "./network.tf"
+}
 # Llama al módulo de Rancher
 module "rancher_instance" {
   source = "./modules/rancher"
