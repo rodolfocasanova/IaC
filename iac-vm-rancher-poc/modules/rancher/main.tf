@@ -25,7 +25,7 @@ resource "google_compute_instance" "rancher_vm" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-20-04-lts"
+      image = "ubuntu-os-cloud/ubuntu-minimal-2204-jammy-v20230428"
     }
   }
 
