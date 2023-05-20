@@ -6,7 +6,7 @@ provider "google" {
 }
 # Importar configuración de la red y subred
 module "network" {
-  source = "./network.tf"
+  source = "./modules/network"
 }
 # Llama al módulo de Rancher
 module "rancher_instance" {
