@@ -1,6 +1,6 @@
 variable "network_name" {
   description = "Nombre de la red virtual"
-  type        = string
+  type        =string
 }
 
 variable "subnetwork_name" {
