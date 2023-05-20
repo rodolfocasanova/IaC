@@ -38,11 +38,13 @@ variable "gcp_region" {
 variable "network_name" {
   description = "Nombre de la red virtual"
   type        = string
+  default     = "my-network"
 }
 
 variable "subnetwork_name" {
   description = "Nombre de la subred"
   type        = string
+  default     = "my-subnetwork"
 }
 
 
