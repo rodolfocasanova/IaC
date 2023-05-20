@@ -1,9 +1,9 @@
 output "instance_name" {
   description = "Nombre de la instancia de VM"
-  value       = module.rancher_instance.instance_name
+  value       = google_compute_instance.rancher_vm.name
 }
 
 output "rancher_public_ip" {
   description = "Dirección IP pública de la instancia de Rancher"
-  value       = module.rancher_instance.rancher_public_ip
+  value       = google_compute_address.rancher_ip.address
 }
