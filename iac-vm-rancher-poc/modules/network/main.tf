@@ -1,25 +1,19 @@
-# main.tf
-
-# Define el recurso de red virtual
 resource "google_compute_network" "my_network" {
-  name = "my-network"
+  name = var.network_name
 }
 
-# Define el recurso de subred
 resource "google_compute_subnetwork" "my_subnetwork" {
-  name          = "my-subnetwork"
+  name          = var.subnetwork_name
   ip_cidr_range = "10.0.0.0/24"
-  network       = google_compute_network.my_network.self_link
+  network       = google_compute_network.my_network.name
 }
 
-# Output de nombre de la red virtual
 output "network_name" {
-  description = "Nombre de la red virtual"
+  description = "Name of the virtual network"
   value       = google_compute_network.my_network.name
 }
 
-# Output de nombre de la subred
 output "subnetwork_name" {
-  description = "Nombre de la subred"
+  description = "Name of the subnetwork"
   value       = google_compute_subnetwork.my_subnetwork.name
 }

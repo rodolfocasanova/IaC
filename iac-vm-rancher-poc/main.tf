@@ -1,35 +1,25 @@
-# Define el proveedor de GCP
+# Define the provider for GCP
 provider "google" {
   project = var.gcp_project_id
   region  = var.gcp_region
 }
 
-# Importar configuración de la red y subred
+# Import network module
 module "network" {
-  source            = "./modules/network"
+  source            = "./network"
   network_name      = var.network_name
   subnetwork_name   = var.subnetwork_name
 }
 
-# Llama al módulo de Rancher
+# Import Rancher module
 module "rancher_instance" {
   source = "./modules/rancher"
 
-  instance_name  = var.instance_name
-  machine_type   = var.machine_type
-  zone           = var.zone
-  rancher_image  = var.rancher_image
-  gcp_region    = var.gcp_region
-  network        = module.network.network_name
-  subnetwork     = module.network.subnetwork_name
-}
+  instance_name = var.instance_name
+  machine_type  = var.machine_type
+  zone          = var.zone
+  rancher_image = var.rancher_image
 
-output "instance_name" {
-  description = "Nombre de la instancia de VM"
-  value       = module.rancher_instance.instance_name
-}
-
-output "rancher_public_ip" {
-  description = "Dirección IP pública de la instancia de Rancher"
-  value       = module.rancher_instance.rancher_public_ip
+  network    = module.network.network_name
+  subnetwork = module.network.subnetwork_name
 }

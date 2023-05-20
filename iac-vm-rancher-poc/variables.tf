@@ -1,50 +1,48 @@
 # Define variables
 variable "instance_name" {
-  description = "Nombre de la instancia de VM"
+  description = "Name of the VM instance"
   type        = string
   default     = "rancher-instance"
 }
 
 variable "machine_type" {
-  description = "Tipo de máquina de la instancia de VM"
+  description = "VM machine type"
   type        = string
   default     = "n1-standard-1"
 }
 
 variable "zone" {
-  description = "Zona de GCP donde se creará la instancia de VM"
+  description = "GCP zone where the VM will be created"
   type        = string
   default     = "us-central1-a"
 }
 
 variable "rancher_image" {
-  description = "Imagen de Docker para Rancher"
+  description = "Docker image for Rancher"
   type        = string
   default     = "rancher/rancher"
 }
 
 variable "gcp_project_id" {
-  description = "ID del proyecto de GCP"
+  description = "GCP project ID"
   type        = string
   default     = "training-384005"
 }
 
 variable "gcp_region" {
-  description = "Región de GCP"
+  description = "GCP region"
   type        = string
   default     = "us-central1"
 }
 
 variable "network_name" {
-  description = "Nombre de la red virtual"
+  description = "Name of the virtual network"
   type        = string
   default     = "my-network"
 }
 
 variable "subnetwork_name" {
-  description = "Nombre de la subred"
+  description = "Name of the subnetwork"
   type        = string
   default     = "my-subnetwork"
 }
-
-
