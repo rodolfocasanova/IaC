@@ -10,7 +10,10 @@ module "network" {
   network_name      = "my-network"
   subnetwork_name   = "my-subnetwork"
 }
-
+resource "google_compute_address" "rancher_ip" {
+  name   = "rancher-ip"
+  region = var.gcp_region
+}
 
 # Llama al módulo de Rancher
 module "rancher_instance" {
