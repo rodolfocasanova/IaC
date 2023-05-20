@@ -18,6 +18,16 @@ variable "rancher_image" {
   type        = string
 }
 
+variable "network" {
+  description = "Nombre de la red virtual"
+  type        = string
+}
+
+variable "subnetwork" {
+  description = "Nombre de la subred"
+  type        = string
+}
+
 resource "google_compute_instance" "rancher_vm" {
   name         = var.instance_name
   machine_type = var.machine_type
@@ -25,12 +35,13 @@ resource "google_compute_instance" "rancher_vm" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-minimal-2204-jammy-v20230428"
+      image = var.rancher_image
     }
   }
 
   network_interface {
-    network = "default"
+    network = var.network
+    subnetwork = var.subnetwork
   }
 
   metadata_startup_script = <<-EOF
@@ -47,4 +58,9 @@ resource "google_compute_instance" "rancher_vm" {
 output "instance_name" {
   description = "Nombre de la instancia de VM"
   value       = google_compute_instance.rancher_vm.name
+}
+
+output "rancher_public_ip" {
+  description = "Dirección IP pública de la instancia de Rancher"
+  value       = google_compute_instance.rancher_vm.network_interface[0].access_config[0].nat_ip
 }

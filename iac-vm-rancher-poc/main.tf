@@ -1,13 +1,14 @@
 # Define el proveedor de GCP
 provider "google" {
-#  credentials = file("<PATH_TO_SERVICE_ACCOUNT_KEY>")
-  project     = var.gcp_project_id
-  region      = var.gcp_region
+  project = var.gcp_project_id
+  region  = var.gcp_region
 }
+
 # Importar configuración de la red y subred
 module "network" {
   source = "./modules/network"
 }
+
 # Llama al módulo de Rancher
 module "rancher_instance" {
   source = "./modules/rancher"
@@ -16,41 +17,11 @@ module "rancher_instance" {
   machine_type  = var.machine_type
   zone          = var.zone
   rancher_image = var.rancher_image
+
+  network = module.network.network_name
+  subnetwork = module.network.subnetwork_name
 }
 
-# Crea una dirección IP pública
-resource "google_compute_address" "rancher_ip" {
-  name   = "rancher-public-ip"
-  region = var.gcp_region
-}
-
-# Asocia la dirección IP pública a la instancia de VM
-#resource "google_compute_address_association" "rancher_ip_association" {
-#  name          = "rancher-ip-association"
-#  address       = google_compute_address.rancher_ip.address
-#  instance_name = module.rancher_instance.instance_name
-#}
-resource "google_compute_instance" "rancher_instance" {
-  name         = module.rancher_instance.instance_name
-  machine_type = var.machine_type
-  zone         = var.zone
-
-  boot_disk {
-    initialize_params {
-      image = var.rancher_image
-    }
-  }
-
-  network_interface {
-    network = "default"
-
-    access_config {
-      nat_ip = google_compute_address.rancher_ip.address
-    }
-  }
-
-  # Resto de la configuración de la instancia de VM de Rancher
-}
 # Define variables
 variable "instance_name" {
   description = "Nombre de la instancia de VM"
@@ -91,7 +62,7 @@ variable "gcp_region" {
 # Define outputs
 output "rancher_public_ip" {
   description = "Dirección IP pública de la instancia de Rancher"
-  value       = google_compute_address.rancher_ip.address
+  value       = module.rancher_instance.rancher_public_ip
 }
 
 output "rancher_instance_name" {
