@@ -34,3 +34,15 @@ variable "gcp_region" {
   type        = string
   default     = "us-central1"
 }
+
+variable "network_name" {
+  description = "Nombre de la red virtual"
+  type        = string
+}
+
+variable "subnetwork_name" {
+  description = "Nombre de la subred"
+  type        = string
+}
+
+

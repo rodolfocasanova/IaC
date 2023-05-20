@@ -27,5 +27,15 @@ resource "google_compute_instance" "rancher_vm" {
 # Agregar el recurso google_compute_address fuera del bloque del recurso "google_compute_instance"
 resource "google_compute_address" "rancher_ip" {
   name   = "rancher-ip"
-  region = var.region
+  region = var.gcp_region
+}
+
+output "instance_name" {
+  description = "Nombre de la instancia de VM"
+  value       = google_compute_instance.rancher_vm.name
+}
+
+output "rancher_public_ip" {
+  description = "Dirección IP pública de la instancia de Rancher"
+  value       = google_compute_address.rancher_ip.address
 }

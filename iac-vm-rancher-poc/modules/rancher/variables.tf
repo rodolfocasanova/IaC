@@ -27,3 +27,8 @@ variable "subnetwork" {
   description = "Nombre de la subred"
   type        = string
 }
+
+variable "gcp_region" {
+  description = "Región de GCP"
+  type        = string
+}
