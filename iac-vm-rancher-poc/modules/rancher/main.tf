@@ -2,7 +2,12 @@ resource "google_compute_instance" "rancher_vm" {
   name         = var.instance_name
   machine_type = var.machine_type
   zone         = var.zone
-
+  # Agregar el recurso google_compute_address
+  resource "google_compute_address" "rancher_ip" {
+    name   = "rancher-ip"
+    region = var.region
+  }
+  
   boot_disk {
     initialize_params {
       image = var.rancher_image
