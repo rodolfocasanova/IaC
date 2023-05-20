@@ -1,25 +1,31 @@
-# Define the provider for GCP
-provider "google" {
-  project = var.gcp_project_id
-  region  = var.gcp_region
-}
+terraform {
+  required_providers {
+    google = "~> 3.70.0"
+  }
 
-# Import network module
-module "network" {
-  source            = "./network"
-  network_name      = var.network_name
-  subnetwork_name   = var.subnetwork_name
-}
+  provider google {
+    project = var.project_id
+    region = var.region
+  }
 
-# Import Rancher module
-module "rancher_instance" {
-  source = "./modules/rancher"
+  resource "google_compute_instance" "rancher" {
+    name = var.instance_name
+    machine_type = var.machine_type
+    zone = var.zone
 
-  instance_name = var.instance_name
-  machine_type  = var.machine_type
-  zone          = var.zone
-  rancher_image = var.rancher_image
+    boot_disk {
+      initialize_params {
+        image = var.rancher_image
+      }
+    }
 
-  network    = module.network.network_name
-  subnetwork = module.network.subnetwork_name
+    network_interface {
+      network = var.network_name
+      subnetwork = var.subnetwork_name
+    }
+  }
+
+  output "rancher_ip" {
+    value = google_compute_instance.rancher.network_interface.0.access_config.0.assigned_nat_ip
+  }
 }
