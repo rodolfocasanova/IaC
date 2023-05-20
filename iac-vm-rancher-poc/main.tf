@@ -19,7 +19,7 @@ module "rancher_instance" {
   machine_type   = var.machine_type
   zone           = var.zone
   rancher_image  = var.rancher_image
-
+  gcp_region    = var.gcp_region
   network        = module.network.network_name
   subnetwork     = module.network.subnetwork_name
 }
