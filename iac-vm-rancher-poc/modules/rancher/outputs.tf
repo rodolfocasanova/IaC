@@ -5,5 +5,5 @@ output "instance_name" {
 
 output "rancher_public_ip" {
   description = "Dirección IP pública de la instancia de Rancher"
-  value       = google_compute_instance.rancher_vm.network_interface[0].access_config[0].nat_ip
+  value       = google_compute_address.rancher_ip.address
 }
