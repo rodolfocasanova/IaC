@@ -44,9 +44,4 @@ resource "google_compute_instance" "rancher_vm" {
   # Otros argumentos y configuraciones necesarios para la instancia de VM
 }
 
-resource "google_compute_address" "rancher_ip" {
-  name = "rancher-ip"
-
-  # Otros argumentos y configuraciones necesarios para la dirección IP
-}
 
