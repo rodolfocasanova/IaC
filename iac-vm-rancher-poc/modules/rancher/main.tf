@@ -2,12 +2,7 @@ resource "google_compute_instance" "rancher_vm" {
   name         = var.instance_name
   machine_type = var.machine_type
   zone         = var.zone
-  # Agregar el recurso google_compute_address
-  resource "google_compute_address" "rancher_ip" {
-    name   = "rancher-ip"
-    region = var.region
-  }
-  
+
   boot_disk {
     initialize_params {
       image = var.rancher_image
@@ -15,7 +10,7 @@ resource "google_compute_instance" "rancher_vm" {
   }
 
   network_interface {
-    network = var.network
+    network    = var.network
     subnetwork = var.subnetwork
   }
 
@@ -26,6 +21,11 @@ resource "google_compute_instance" "rancher_vm" {
 
     # Otros comandos de configuración o instalación
     # ...
+  EOF
+}
 
-    EOF
+# Agregar el recurso google_compute_address fuera del bloque del recurso "google_compute_instance"
+resource "google_compute_address" "rancher_ip" {
+  name   = "rancher-ip"
+  region = var.region
 }
