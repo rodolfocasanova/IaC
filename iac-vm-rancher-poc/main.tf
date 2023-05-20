@@ -7,8 +7,8 @@ provider "google" {
 # Importar configuración de la red y subred
 module "network" {
   source            = "./modules/network"
-  network_name      = "my-network"
-  subnetwork_name   = "my-subnetwork"
+  network_name      = var.network_name
+  subnetwork_name   = var.subnetwork_name
 }
 
 # Llama al módulo de Rancher
