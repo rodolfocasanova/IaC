@@ -24,3 +24,10 @@ module "rancher_instance" {
   network = module.network.network_name
   subnetwork = module.network.subnetwork_name
 }
+resource "google_compute_instance" "rancher_vm" {
+  # Configuración de la instancia de VM
+}
+
+resource "google_compute_address" "rancher_ip" {
+  # Configuración de la dirección IP
+}
