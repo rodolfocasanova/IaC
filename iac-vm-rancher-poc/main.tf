@@ -25,9 +25,25 @@ module "rancher_instance" {
   subnetwork = module.network.subnetwork_name
 }
 resource "google_compute_instance" "rancher_vm" {
-  # Configuración de la instancia de VM
+  name         = var.instance_name
+  machine_type = var.machine_type
+
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-minimal-2204-jammy-v20230428"
+    }
+  }
+
+  network_interface {
+    network = "default"
+  }
+
+  # Otros argumentos y configuraciones necesarios para la instancia de VM
 }
 
 resource "google_compute_address" "rancher_ip" {
-  # Configuración de la dirección IP
+  name = "rancher-ip"
+
+  # Otros argumentos y configuraciones necesarios para la dirección IP
 }
+
